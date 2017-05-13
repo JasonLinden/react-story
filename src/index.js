@@ -23,6 +23,7 @@ const defaultProps = {
   Wrapper: glamorous.div({
     display: 'flex',
     position: 'relative',
+    overflow: 'hidden',
     height: '100%',
     '& *': {
       boxSizing: 'border-box',
@@ -30,28 +31,28 @@ const defaultProps = {
     }
   }),
   SidebarWrapper: glamorous.div(
-    {
-      overflow: 'hidden'
-    },
     ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
       const open = {
+        maxWidth: sidebarWidth,
         flex: `0 0 ${sidebarWidth}px`
       }
       return {
+        maxWidth: 0,
         flex: '0 0 0px',
-        transition: 'all .3s ease-out',
-        ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
+        transition: 'all .2s ease-out',
+        ...(width > sidebarBreakpoint ? open : {})
       }
     }
   ),
   Sidebar: glamorous.div({
-    background: 'rgba(0,0,0, 0.05)',
-    borderRight: '3px solid rgba(0,0,0, 0.3)',
-    transition: 'all .3s ease-out',
+    background: '#f3f3f3',
+    borderRight: '3px solid #cccccc',
+    transition: 'all .2s ease-out',
     height: '100%'
   }, ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
     const open = {
-      transform: 'translate(0, 0)'
+      transform: 'translate(0, 0)',
+      boxShadow: width <= sidebarBreakpoint ? '0 0 20px 0 rgba(0,0,0,.25)' : ''
     }
     return {
       width: sidebarWidth,
@@ -91,7 +92,7 @@ const defaultProps = {
     background: 'grey',
     opacity: 1,
     pointerEvents: 'all',
-    transition: 'all .3s ease'
+    transition: 'all .2s ease'
   }, ({isSidebarOpen}, {width, sidebarBreakpoint}) => {
     const hidden = {
       opacity: '0',
@@ -161,7 +162,7 @@ const defaultProps = {
     flexGrow: '1',
     padding: '10px 20px',
     overflow: 'auto',
-    transition: 'all .3s ease-out'
+    transition: 'all .2s ease-out'
   })
 }
 
@@ -273,6 +274,11 @@ class ReactStory extends React.Component {
                             <NavItemLink
                               to={story.path}
                               active={!!match}
+                              onClick={e => {
+                                this.setState({
+                                  isSidebarOpen: false
+                                })
+                              }}
                             >
                               {story.name}
                             </NavItemLink>
