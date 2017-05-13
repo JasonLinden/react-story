@@ -185,13 +185,15 @@ class ReactStory extends React.Component {
   componentWillReceiveProps (newProps) {
     const oldProps = this.props
 
-    const { sidebarBreakpoint } = newProps
+    const { theme: { sidebarBreakpoint } } = newProps
 
     if (
-      oldProps.width > sidebarBreakpoint &&
-      newProps.width <= sidebarBreakpoint
+      oldProps.width < newProps.width &&
+      newProps.width > sidebarBreakpoint
     ) {
-      this.setState({isSidebarOpen: false})
+      this.setState({
+        isSidebarOpen: false
+      })
     }
     if (oldProps.stories !== newProps.stories) {
       this.rebuild()
