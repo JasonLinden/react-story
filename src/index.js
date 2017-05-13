@@ -290,7 +290,13 @@ class ReactStory extends React.Component {
                 </NavWrapper>
               </Sidebar>
             </SidebarWrapper>
-            <StoryWrapper>
+            <StoryWrapper
+              onClick={e => {
+                isSidebarOpen && this.setState({
+                  isSidebarOpen: false
+                })
+              }}
+            >
               <Switch>
                 {stories.map(story => (
                   <Route
