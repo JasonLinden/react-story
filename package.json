@@ -1,6 +1,6 @@
 {
   "name": "react-story",
-  "version": "6.0.0",
+  "version": "0.0.1",
   "description": "A story component for displaying, developing, and testing React components",
   "license": "MIT",
   "homepage": "https://github.com/tannerlinsley/react-story#readme",
@@ -22,12 +22,10 @@
     "media/*.png"
   ],
   "scripts": {
-    "build:node": "babel src --out-dir lib --source-maps inline --presets=es2015,stage-2,react",
-    "watch": "npm-run-all --parallel watch:*",
-    "watch:node": "onchange 'src/**/*.js' -i -- npm run build:node",
+    "build": "babel src --out-dir lib --source-maps inline --presets=es2015,stage-2,react",
+    "watch": "onchange 'src/**/*.js' -i -- npm run build",
     "test": "standard",
     "umd": "rimraf react-story.js && webpack --config umd.webpack.js",
-    "build": "npm-run-all build:*",
     "prepublish": "npm run build && npm run umd",
     "postpublish": "git push --tags",
     "docs": "cd docs && yarn && yarn run build"
