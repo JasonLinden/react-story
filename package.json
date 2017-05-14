@@ -29,7 +29,8 @@
     "umd": "rimraf react-story.js && webpack --config umd.webpack.js",
     "build": "npm-run-all build:*",
     "prepublish": "npm run build && npm run umd",
-    "postpublish": "git push --tags"
+    "postpublish": "git push --tags",
+    "docs": "cd docs && yarn && yarn run build"
   },
   "dependencies": {
     "classnames": "^2.2.5",

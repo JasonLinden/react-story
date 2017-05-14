@@ -1,3 +1,4 @@
+import React from 'react'
 import { Link } from 'react-router-dom'
 import glamorous from 'glamorous'
 
@@ -5,58 +6,145 @@ export default {
   stories: [],
   default: () => <span>No story component found!</span>,
   theme: {
+    topbarHeight: 40,
     sidebarBreakpoint: 550,
     sidebarWidth: 200
   },
   Wrapper: glamorous.div({
     display: 'flex',
+    flexDirection: 'column',
     position: 'relative',
+    overflow: 'hidden',
+    height: '100%',
+    width: '100%',
+    transition: 'all .2s ease-out',
     '& *': {
       boxSizing: 'border-box',
       fontSize: '14px'
     }
   }),
-  SidebarWrapper: glamorous.div(
+  NavWrapper: glamorous.div(
     {
-      overflow: 'hidden'
+      width: '100%',
+      transition: 'all .2s ease-out'
     },
-    ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
-      const open = {
-        flex: `0 0 ${sidebarWidth}px`
-      }
+    (_, {width, topbarHeight, sidebarBreakpoint}) => {
       return {
-        flex: '0 0 0px',
-        transition: 'all .3s ease-out',
-        ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
+        flex: `0 0 ${topbarHeight}`,
+        height: width > sidebarBreakpoint ? '0' : topbarHeight
       }
     }
   ),
-  Sidebar: glamorous.div({
-    background: 'rgba(0,0,0, 0.05)',
-    borderRight: '3px solid rgba(0,0,0, 0.3)',
-    transition: 'all .3s ease-out',
-    height: '100%'
-  }, ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
-    const open = {
-      transform: 'translate(0, 0)'
+  Nav: glamorous.div(
+    {
+      display: 'flex',
+      alignItems: 'center',
+      width: '100%',
+      background: '#f3f3f3',
+      borderBottom: '3px solid #cccccc',
+      transition: 'all .2s ease-out',
+      cursor: 'pointer'
+    },
+    (_, {topbarHeight, width, sidebarBreakpoint}) => {
+      return {
+        height: topbarHeight,
+        transform: width > sidebarBreakpoint && 'translateY(-100%)'
+      }
     }
+  ),
+  SidebarToggle: glamorous(
+    ({isSidebarOpen, ...props}) => (
+      <div {...props}>
+        <div>
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+      </div>
+    )
+  )(({isSidebarOpen}, {width, sidebarBreakpoint, topbarHeight}) => {
+    const paddingSize = 10
+    const toggleSize = Math.round((topbarHeight - (paddingSize * 2)) * 0.5)
+    const barHeight = Math.round(toggleSize * 0.15)
     return {
-      width: sidebarWidth,
-      transform: 'translate(-100%, 0)',
-      ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
+      flexBasis: 'auto',
+      width: 'auto',
+      overflow: 'hidden',
+      flexGrow: 0,
+      flexShrink: 0,
+      display: 'inline-block',
+      padding: paddingSize,
+      '& > div': {
+        position: 'relative',
+        height: toggleSize,
+        width: toggleSize * 1.5,
+        '& span': {
+          display: 'block',
+          position: 'absolute',
+          height: barHeight,
+          width: '100%',
+          background: '#222',
+          borderRadius: barHeight,
+          opacity: '1',
+          left: '0',
+          transform: 'rotate(0deg)',
+          transition: '.25s ease-in-out'
+        },
+        '& span:nth-child(1)': {
+          top: toggleSize * 0
+        },
+        '& span:nth-child(2)': {
+          top: toggleSize * 0.4
+        },
+        '& span:nth-child(3)': {
+          top: toggleSize * 0.4
+        },
+        '& span:nth-child(4)': {
+          top: toggleSize * 0.8
+        },
+        ...(isSidebarOpen ? {
+          '& span:nth-child(1)': {
+            top: toggleSize * 0,
+            width: '0%',
+            left: '50%'
+          },
+          '& span:nth-child(2)': {
+            top: toggleSize * 0.4,
+            transform: 'rotate(45deg)'
+          },
+          '& span:nth-child(3)': {
+            top: toggleSize * 0.4,
+            transform: 'rotate(-45deg)'
+          },
+          '& span:nth-child(4)': {
+            top: toggleSize * 0.8,
+            width: '0%',
+            left: '50%'
+          }
+        } : {})
+      }
     }
   }),
-  NavWrapper: glamorous.div(),
-  Nav: glamorous.ul({
+  StoryName: glamorous.div({
+    flexBasis: 'auto',
+    flexGrow: '1',
+    fontWeight: 'bold',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    padding: '10px 0'
+  }),
+  StoryListWrapper: glamorous.Div,
+  StoryList: glamorous.ul({
     padding: 0,
     margin: 0,
     listStyleType: 'none'
   }),
-  NavItem: glamorous.li({
+  StoryListItem: glamorous.li({
     padding: 0,
     margin: 0
   }),
-  NavItemLink: glamorous(
+  StoryListItemLink: glamorous(
     ({active, ...rest}) =>
       <Link {...rest} />
     )({
@@ -69,85 +157,44 @@ export default {
       fontWeight: active && 'bold'
     })
   ),
-  SidebarToggle: glamorous.div({
-    position: 'absolute',
-    bottom: '5px',
-    right: '5px',
-    width: '40px',
-    height: '40px',
-    background: 'grey',
-    opacity: 1,
-    pointerEvents: 'all',
-    transition: 'all .3s ease'
-  }, ({isSidebarOpen}, {width, sidebarBreakpoint}) => {
-    const hidden = {
-      opacity: '0',
-      pointerEvents: 'none',
-      transform: 'translate(-20px, 0)'
+  MainWrapper: glamorous.div({
+    flex: '1 1 auto',
+    display: 'flex',
+    transition: 'all .2s ease-out'
+  }),
+  SidebarWrapper: glamorous.div(
+    {
+      transition: 'all .2s ease-out',
+      pointerEvents: 'none'
+    },
+    ({isSidebarOpen}, {width, height, topbarHeight, sidebarWidth, sidebarBreakpoint}) => {
+      return {
+        flex: width < sidebarBreakpoint ? '0 0 0' : `0 0 ${sidebarWidth}`,
+        width: width < sidebarBreakpoint ? 0 : sidebarWidth
+      }
+    }
+  ),
+  Sidebar: glamorous.div({
+    background: '#f3f3f3',
+    borderRight: '3px solid #cccccc',
+    transition: 'all .2s ease-out',
+    height: '100%',
+    pointerEvents: 'all'
+  }, ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
+    const open = {
+      transform: 'translate(0, 0)',
+      boxShadow: width <= sidebarBreakpoint ? '0 10px 20px 0 rgba(0,0,0,.25)' : ''
     }
     return {
-      ...(width > sidebarBreakpoint ? hidden : {})
+      width: sidebarWidth,
+      transform: 'translate(-100%, 0)',
+      ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
     }
   }),
-  Close: glamorous(
-    props => (
-      <div {...props}>
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
-    )
-  )({
-    '& span': {
-      display: 'block',
-      position: 'absolute',
-      height: '9px',
-      width: '100%',
-      background: '#d3531a',
-      borderRadius: '9px',
-      opacity: '1',
-      left: '0',
-      transform: 'rotate(0deg)',
-      transition: '.25s ease-in-out'
-    },
-    '& span:nth-child(1)': {
-      top: '0px'
-    },
-    '& span:nth-child(2)': {
-      top: '18px'
-    },
-    'span:nth-child(3)': {
-      top: '18px'
-    },
-    '& span:nth-child(4)': {
-      top: '36px'
-    }
-  }, ({isSidebarOpen}) => ({
-    ...(isSidebarOpen ? {
-      '& span:nth-child(1)': {
-        top: '18px',
-        width: '0%',
-        left: '50%'
-      },
-      '& span:nth-child(2)': {
-        transform: 'rotate(45deg)'
-      },
-      '& span:nth-child(3)': {
-        transform: 'rotate(-45deg)'
-      },
-      '& span:nth-child(4)': {
-        top: '18px',
-        width: '0%',
-        left: '50%'
-      }
-    } : {})
-  })),
   StoryWrapper: glamorous.div({
-    flexBasis: '100%',
-    flexGrow: '1',
-    padding: '10px 20px',
+    flex: '1 1 auto',
+    padding: '10px',
     overflow: 'auto',
-    transition: 'all .3s ease-out'
+    transition: 'all .2s ease-out'
   })
 }

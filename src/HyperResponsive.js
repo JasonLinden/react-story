@@ -36,30 +36,29 @@ export default function HyperResponsive (WrappedComponent) {
     render () {
       const {
         style,
+        className,
         ...rest
       } = this.props
+
       const {
-        ready,
         width,
         height
       } = this.state
       return (
         <div
-          className='ResponsiveWrapper'
           ref={el => { this.el = el }}
           style={{
-            width: '100%',
             height: '100%',
+            width: '100%',
             ...style
           }}
+          className={className}
         >
-          {ready && (
-            <WrappedComponent
-              width={width}
-              height={height}
-              {...rest}
-            />
-          )}
+          <WrappedComponent
+            width={width}
+            height={height}
+            {...rest}
+          />
         </div>
       )
     }

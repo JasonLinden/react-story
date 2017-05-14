@@ -1,170 +1,19 @@
 import React from 'react'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect
 } from 'react-router-dom'
-import glamorous, { ThemeProvider } from 'glamorous'
+import { ThemeProvider } from 'glamorous'
 //
 import Utils from './utils'
 import HyperResponsive from './HyperResponsive'
+import defaultProps from './defaultProps'
 
 let uid = 0
 
-const defaultProps = {
-  stories: [],
-  default: () => <span>No story component found!</span>,
-  theme: {
-    sidebarBreakpoint: 550,
-    sidebarWidth: 200
-  },
-  Wrapper: glamorous.div({
-    display: 'flex',
-    position: 'relative',
-    overflow: 'hidden',
-    height: '100%',
-    '& *': {
-      boxSizing: 'border-box',
-      fontSize: '14px'
-    }
-  }),
-  SidebarWrapper: glamorous.div(
-    ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
-      const open = {
-        maxWidth: sidebarWidth,
-        flex: `0 0 ${sidebarWidth}px`
-      }
-      return {
-        maxWidth: 0,
-        flex: '0 0 0px',
-        transition: 'all .2s ease-out',
-        ...(width > sidebarBreakpoint ? open : {})
-      }
-    }
-  ),
-  Sidebar: glamorous.div({
-    background: '#f3f3f3',
-    borderRight: '3px solid #cccccc',
-    transition: 'all .2s ease-out',
-    height: '100%'
-  }, ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
-    const open = {
-      transform: 'translate(0, 0)',
-      boxShadow: width <= sidebarBreakpoint ? '0 0 20px 0 rgba(0,0,0,.25)' : ''
-    }
-    return {
-      width: sidebarWidth,
-      transform: 'translate(-100%, 0)',
-      ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
-    }
-  }),
-  NavWrapper: glamorous.div(),
-  Nav: glamorous.ul({
-    padding: 0,
-    margin: 0,
-    listStyleType: 'none'
-  }),
-  NavItem: glamorous.li({
-    padding: 0,
-    margin: 0
-  }),
-  NavItemLink: glamorous(
-    ({active, ...rest}) =>
-      <Link {...rest} />
-    )({
-      display: 'block',
-      padding: '10px',
-      textDecoration: 'none',
-      color: 'rgba(0, 0, 0, 0.8)',
-      borderBottom: '1px solid rgba(0, 0, 0, 0.05)'
-    }, ({active}) => ({
-      fontWeight: active && 'bold'
-    })
-  ),
-  SidebarToggle: glamorous.div({
-    position: 'absolute',
-    bottom: '5px',
-    right: '5px',
-    width: '40px',
-    height: '40px',
-    background: 'grey',
-    opacity: 1,
-    pointerEvents: 'all',
-    transition: 'all .2s ease'
-  }, ({isSidebarOpen}, {width, sidebarBreakpoint}) => {
-    const hidden = {
-      opacity: '0',
-      pointerEvents: 'none',
-      transform: 'translate(-20px, 0)'
-    }
-    return {
-      ...(width > sidebarBreakpoint ? hidden : {})
-    }
-  }),
-  Close: glamorous(
-    props => (
-      <div {...props}>
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
-    )
-  )({
-    '& span': {
-      display: 'block',
-      position: 'absolute',
-      height: '9px',
-      width: '100%',
-      background: '#d3531a',
-      borderRadius: '9px',
-      opacity: '1',
-      left: '0',
-      transform: 'rotate(0deg)',
-      transition: '.25s ease-in-out'
-    },
-    '& span:nth-child(1)': {
-      top: '0px'
-    },
-    '& span:nth-child(2)': {
-      top: '18px'
-    },
-    'span:nth-child(3)': {
-      top: '18px'
-    },
-    '& span:nth-child(4)': {
-      top: '36px'
-    }
-  }, ({isSidebarOpen}) => ({
-    ...(isSidebarOpen ? {
-      '& span:nth-child(1)': {
-        top: '18px',
-        width: '0%',
-        left: '50%'
-      },
-      '& span:nth-child(2)': {
-        transform: 'rotate(45deg)'
-      },
-      '& span:nth-child(3)': {
-        transform: 'rotate(-45deg)'
-      },
-      '& span:nth-child(4)': {
-        top: '18px',
-        width: '0%',
-        left: '50%'
-      }
-    } : {})
-  })),
-  StoryWrapper: glamorous.div({
-    flexBasis: '100%',
-    flexGrow: '1',
-    padding: '10px 20px',
-    overflow: 'auto',
-    transition: 'all .2s ease-out'
-  })
-}
+// const defaultProps =
 
 const toggleSidebar = state => ({
   isSidebarOpen: !state.isSidebarOpen
@@ -221,22 +70,24 @@ class ReactStory extends React.Component {
   }
   render () {
     const {
-      style,
-      className,
       width,
       height,
       theme,
       // Components
       Wrapper,
-      SidebarWrapper,
-      Sidebar,
       NavWrapper,
       Nav,
-      NavItem,
-      NavItemLink,
+      StoryName,
+      StoryListWrapper,
+      StoryList,
+      StoryListItem,
+      StoryListItemLink,
       SidebarToggle,
-      Close,
+      MainWrapper,
+      SidebarWrapper,
+      Sidebar,
       StoryWrapper
+      //
     } = this.props
 
     const {
@@ -252,74 +103,86 @@ class ReactStory extends React.Component {
           height
         }}>
           <Wrapper
-            style={style}
-            className={className}
+            isSidebarOpen={isSidebarOpen}
           >
-            <SidebarWrapper
+            <NavWrapper
               isSidebarOpen={isSidebarOpen}
             >
-              <Sidebar
-                isSidebarOpen={isSidebarOpen}
-              >
-                <NavWrapper>
-                  <Nav>
-                    {stories.map(story => (
-                      <NavItem
-                        key={story.path}
-                      >
-                        <Route
-                          path={'/' + story.path}
-                          exact
-                          children={({ match }) => (
-                            <NavItemLink
-                              to={story.path}
-                              active={!!match}
-                              onClick={e => {
-                                this.setState({
-                                  isSidebarOpen: false
-                                })
-                              }}
-                            >
-                              {story.name}
-                            </NavItemLink>
-                          )}
-                        />
-                      </NavItem>
-                    ))}
-                  </Nav>
-                </NavWrapper>
-              </Sidebar>
-            </SidebarWrapper>
-            <StoryWrapper
-              onClick={e => {
-                isSidebarOpen && this.setState({
-                  isSidebarOpen: false
-                })
-              }}
-            >
-              <Switch>
-                {stories.map(story => (
-                  <Route
-                    key={story.path}
-                    exact
-                    path={'/' + story.path}
-                    render={routeProps => (
-                      <story.component
-                        story={story}
-                        route={routeProps}
-                      />
-                    )}
-                  />
-                ))}
-                <Redirect
-                  to={stories[0].path}
+              <Nav
+                onClick={() => this.setState(toggleSidebar)}
+              >p
+                <SidebarToggle
+                  isSidebarOpen={isSidebarOpen}
                 />
-              </Switch>
-            </StoryWrapper>
-            <SidebarToggle
-              isSidebarOpen={isSidebarOpen}
-              onClick={() => this.setState(toggleSidebar)}
-            />
+                <Route
+                  path={'/:storyID'}
+                  children={({match}) => (
+                    <StoryName>
+                      {match && stories.find(d => d.path === match.params.storyID).name}
+                    </StoryName>
+                  )}
+                />
+              </Nav>
+            </NavWrapper>
+            <MainWrapper>
+              <SidebarWrapper>
+                <Sidebar
+                  isSidebarOpen={isSidebarOpen}
+                >
+                  <StoryListWrapper>
+                    <StoryList>
+                      {stories.map(story => (
+                        <StoryListItem
+                          key={story.path}
+                        >
+                          <Route
+                            path={'/' + story.path}
+                            exact
+                            children={({ match }) => (
+                              <StoryListItemLink
+                                to={story.path}
+                                active={!!match}
+                                onClick={e => {
+                                  this.setState({
+                                    isSidebarOpen: false
+                                  })
+                                }}
+                              >
+                                {story.name}
+                              </StoryListItemLink>
+                            )}
+                          />
+                        </StoryListItem>
+                      ))}
+                    </StoryList>
+                  </StoryListWrapper>
+                </Sidebar>
+              </SidebarWrapper>
+              <StoryWrapper
+                onClick={e => this.setState({
+                  isSidebarOpen: false
+                })}
+              >
+                <Switch>
+                  {stories.map(story => (
+                    <Route
+                      key={story.path}
+                      exact
+                      path={'/' + story.path}
+                      render={routeProps => (
+                        <story.component
+                          story={story}
+                          route={routeProps}
+                        />
+                      )}
+                    />
+                  ))}
+                  <Redirect
+                    to={stories[0].path}
+                  />
+                </Switch>
+              </StoryWrapper>
+            </MainWrapper>
           </Wrapper>
         </ThemeProvider>
       </Router>
