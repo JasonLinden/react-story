@@ -182,10 +182,12 @@ export default {
   MainWrapper: glamorous.div({
     flex: '1 1 auto',
     display: 'flex',
+    height: '100%',
     transition: 'all .2s ease-out'
   }),
   SidebarWrapper: glamorous.div(
     {
+      height: '100%',
       transition: 'all .2s ease-out',
       pointerEvents: 'none',
       zIndex: 100000000
@@ -203,7 +205,7 @@ export default {
     transition: 'all .2s ease-out',
     height: '100%',
     pointerEvents: 'all'
-  }, ({isSidebarOpen}, {width, sidebarWidth, sidebarBreakpoint}) => {
+  }, ({isSidebarOpen}, {width, topbarHeight, sidebarWidth, sidebarBreakpoint}) => {
     const open = {
       transform: 'translate(0, 0)',
       boxShadow: width <= sidebarBreakpoint ? '0 10px 20px 0 rgba(0,0,0,.25)' : ''
@@ -211,6 +213,7 @@ export default {
     return {
       width: sidebarWidth,
       transform: 'translate(-100%, 0)',
+      paddingBottom: width < sidebarBreakpoint && topbarHeight,
       ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
     }
   }),
