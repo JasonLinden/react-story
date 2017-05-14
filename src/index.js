@@ -6,10 +6,13 @@ import {
   Redirect
 } from 'react-router-dom'
 import { ThemeProvider } from 'glamorous'
+import initReactFastclick from 'react-fastclick'
 //
 import Utils from './utils'
 import HyperResponsive from './HyperResponsive'
 import defaultProps from './defaultProps'
+
+initReactFastclick()
 
 let uid = 0
 

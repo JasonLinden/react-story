@@ -146,7 +146,8 @@ export default {
     padding: 0,
     margin: 0,
     listStyleType: 'none',
-    overflow: 'auto'
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch'
   }),
   StoryListItem: glamorous.li({
     padding: 0,
@@ -217,6 +218,7 @@ export default {
     flex: '1 1 auto',
     padding: '10px',
     overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
     transition: 'all .2s ease-out'
   })
 }
