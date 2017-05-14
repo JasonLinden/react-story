@@ -13,8 +13,6 @@ import defaultProps from './defaultProps'
 
 let uid = 0
 
-// const defaultProps =
-
 const toggleSidebar = state => ({
   isSidebarOpen: !state.isSidebarOpen
 })
@@ -73,6 +71,8 @@ class ReactStory extends React.Component {
       width,
       height,
       theme,
+      showCredit,
+      pathPrefix,
       // Components
       Wrapper,
       NavWrapper,
@@ -82,6 +82,7 @@ class ReactStory extends React.Component {
       StoryList,
       StoryListItem,
       StoryListItemLink,
+      Credit,
       SidebarToggle,
       MainWrapper,
       SidebarWrapper,
@@ -115,7 +116,7 @@ class ReactStory extends React.Component {
                   isSidebarOpen={isSidebarOpen}
                 />
                 <Route
-                  path={'/:storyID'}
+                  path={'/' + pathPrefix + ':storyID'}
                   children={({match}) => (
                     <StoryName>
                       {match && stories.find(d => d.path === match.params.storyID).name}
@@ -136,7 +137,7 @@ class ReactStory extends React.Component {
                           key={story.path}
                         >
                           <Route
-                            path={'/' + story.path}
+                            path={'/' + pathPrefix + story.path}
                             exact
                             children={({ match }) => (
                               <StoryListItemLink
@@ -155,11 +156,20 @@ class ReactStory extends React.Component {
                         </StoryListItem>
                       ))}
                     </StoryList>
+                    {showCredit && (
+                      <Credit>
+                        <a
+                          href='https://react-story.js.org'
+                        >
+                          Built with React-Story
+                        </a>
+                      </Credit>
+                    )}
                   </StoryListWrapper>
                 </Sidebar>
               </SidebarWrapper>
               <StoryWrapper
-                onClick={e => this.setState({
+                onClick={e => isSidebarOpen && this.setState({
                   isSidebarOpen: false
                 })}
               >
@@ -168,17 +178,17 @@ class ReactStory extends React.Component {
                     <Route
                       key={story.path}
                       exact
-                      path={'/' + story.path}
-                      render={routeProps => (
+                      path={'/' + pathPrefix + story.path}
+                      render={route => (
                         <story.component
                           story={story}
-                          route={routeProps}
+                          route={route}
                         />
                       )}
                     />
                   ))}
                   <Redirect
-                    to={stories[0].path}
+                    to={'/' + pathPrefix + stories[0].path}
                   />
                 </Switch>
               </StoryWrapper>
@@ -189,5 +199,7 @@ class ReactStory extends React.Component {
     )
   }
 }
+
+export { defaultProps }
 
 export default HyperResponsive(ReactStory)

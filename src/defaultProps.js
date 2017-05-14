@@ -10,6 +10,8 @@ export default {
     sidebarBreakpoint: 550,
     sidebarWidth: 200
   },
+  showCredit: true,
+  pathPrefix: '',
   Wrapper: glamorous.div({
     display: 'flex',
     flexDirection: 'column',
@@ -134,11 +136,17 @@ export default {
     textOverflow: 'ellipsis',
     padding: '10px 0'
   }),
-  StoryListWrapper: glamorous.Div,
+  StoryListWrapper: glamorous.div({
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  }),
   StoryList: glamorous.ul({
     padding: 0,
     margin: 0,
-    listStyleType: 'none'
+    listStyleType: 'none',
+    overflow: 'auto'
   }),
   StoryListItem: glamorous.li({
     padding: 0,
@@ -157,6 +165,19 @@ export default {
       fontWeight: active && 'bold'
     })
   ),
+  Credit: glamorous.div({
+    padding: '10px',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    boxShadow: '0 0 20px 0 rgba(0,0,0,.2)',
+    '& > a': {
+      color: 'rgba(0,0,0,.5)',
+      textDecoration: 'none',
+      ':hover': {
+        color: '#0297cf'
+      }
+    }
+  }),
   MainWrapper: glamorous.div({
     flex: '1 1 auto',
     display: 'flex',
@@ -165,7 +186,8 @@ export default {
   SidebarWrapper: glamorous.div(
     {
       transition: 'all .2s ease-out',
-      pointerEvents: 'none'
+      pointerEvents: 'none',
+      zIndex: 100000000
     },
     ({isSidebarOpen}, {width, height, topbarHeight, sidebarWidth, sidebarBreakpoint}) => {
       return {
