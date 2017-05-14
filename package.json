@@ -1,6 +1,6 @@
 {
   "name": "react-story",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A story component for displaying, developing, and testing React components",
   "license": "MIT",
   "homepage": "https://github.com/tannerlinsley/react-story#readme",
