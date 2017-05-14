@@ -121,10 +121,10 @@ class ReactStory extends React.Component {
                 <Route
                   path={'/' + pathPrefix + ':storyID'}
                   children={({match}) => {
-                    const activeStory = stories.find(d => d.path === match.params.storyID)
+                    const activeStory = match && stories.find(d => d.path === match.params.storyID)
                     return (
                       <StoryName>
-                        {match && activeStory && activeStory.name}
+                        {activeStory && activeStory.name}
                       </StoryName>
                     )
                   }}
