@@ -1,12 +1,5 @@
-<div align="center">
-  <a href="https://github.com/tannerlinsley/react-story" target="\_parent"><img src="https://github.com/tannerlinsley/react-story/raw/master/media/Banner.png" alt="React Table Logo" style="width:450px;"/></a>
-  <br />
-  <br />
-
-</div>
-
-# React Table
-`react-story` is a **lightweight, fast and extendable datagrid** built for React
+# React Story
+`react-story` is a component for quickly and easily showcasing React components
 
 
 <a href="https://travis-ci.org/tannerlinsley/react-story" target="\_parent">
@@ -35,31 +28,12 @@
 <!-- - <a href="http://codepen.io/tannerlinsley/pen/QpeZBa?editors=0010" target="\_blank">Codepen</a>
 - <a href="http://react-story.js.org/?selectedKind=2.%20Demos&selectedStory=Client-side%20Data&full=0&down=0&left=1&panelRight=0&downPanel=kadirahq%2Fstorybook-addon-actions%2Factions-panel" target="\_parent">Storybook</a> -->
 
-## Table of Contents
-<!-- - [Installation](#installation)
-- [Example](#example)
-- [Data](#data)
-- [Props](#props)
-- [Columns](#columns)
-- [Column Header Groups](#column-header-groups)
-- [Custom Cell and Header and Footer Rendering](#custom-cell-header-and-footer-rendering)
-- [Styles](#styles)
-- [Custom Props](#custom-props)
-- [Pivoting and Aggregation](#pivoting-and-aggregation)
-- [Sub Tables and Sub Components](#sub-storys-and-sub-components)
-- [Server-side Data](#server-side-data)
-- [Fully Controlled Component](#fully-controlled-component)
-- [Functional Rendering](#functional-rendering)
-- [Multi-Sort](#multi-sort)
-- [Filtering](#filtering)
-- [Component Overrides](#component-overrides)
-- [Contributing](#contributing)
-- [Scripts](#scripts)
-- [Used By](#used-by) -->
+## Story of Contents
+- [Installation](#installation)
 
 
 ## Installation
-1. Install React Table as a dependency
+1. Install React Story as a dependency
 ```bash
 $ yarn add react-story
 ```
@@ -88,23 +62,15 @@ import ReactStory from 'react-story'
 render () {
   return (
     <ReactStory
-      stories={[
-        Story1Component,
-        Story2Component,
-        Story3Component
-      ]}
-    </ReactStory>
-
-    // or
-    <ReactStory
       stories={[{
         name: 'Story 1',
-        story: Story1Component
+        component: Story1
       }, {
-        path: 'story2',
-        story: Story2Component
+        name: 'Story 2',
+        component: Story2
       }, {
-        story: Story3Component
+        name: 'Story 3',
+        component: Story3
       }]}
     />
   )
