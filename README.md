@@ -22,15 +22,17 @@
 </a>
 
 ## Features
-- Lightweight at 1kb
+- A single, simple component
+- Built-in story routing
 
-## Demos and examples
+<!-- ## Demos and examples -->
 <!-- - <a href="http://codepen.io/tannerlinsley/pen/QpeZBa?editors=0010" target="\_blank">Codepen</a>
 - <a href="http://react-story.js.org/?selectedKind=2.%20Demos&selectedStory=Client-side%20Data&full=0&down=0&left=1&panelRight=0&downPanel=kadirahq%2Fstorybook-addon-actions%2Factions-panel" target="\_parent">Storybook</a> -->
 
-## Story of Contents
+## Table of Contents
 - [Installation](#installation)
-
+- [Example](#example)
+- [Contributing](#contributing)
 
 ## Installation
 1. Install React Story as a dependency
