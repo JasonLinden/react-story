@@ -37,6 +37,7 @@
     "glamorous": "^3.14.0",
     "javascript-detect-element-resize": "^0.5.3",
     "raf": "^3.3.2",
+    "react-fastclick": "^3.0.1",
     "react-router-dom": "next"
   },
   "peerDependencies": {
