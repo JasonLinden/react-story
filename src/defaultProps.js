@@ -167,6 +167,10 @@ export default {
     })
   ),
   Credit: glamorous.div({
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
     padding: '10px',
     textAlign: 'center',
     fontWeight: 'bold',
@@ -213,7 +217,7 @@ export default {
     return {
       width: sidebarWidth,
       transform: 'translate(-100%, 0)',
-      paddingBottom: width < sidebarBreakpoint && topbarHeight,
+      paddingBottom: topbarHeight,
       ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
     }
   }),

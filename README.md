@@ -23,7 +23,8 @@
 
 ## Features
 - A single, simple component
-- Built-in story routing
+- Built-in optional routing
+- Hyper-responsive, perfect for embedding in an existing UI
 
 <!-- ## Demos and examples -->
 <!-- - <a href="http://codepen.io/tannerlinsley/pen/QpeZBa?editors=0010" target="\_blank">Codepen</a>
@@ -66,13 +67,25 @@ render () {
     <ReactStory
       stories={[{
         name: 'Story 1',
-        component: Story1
+        component: () => (
+          <span>
+            This is a React Story!
+          </span>
+        )
       }, {
         name: 'Story 2',
-        component: Story2
+        component: () => (
+          <span>
+            Hey look! Another story.
+          </span>
+        )
       }, {
         name: 'Story 3',
-        component: Story3
+        component: () => (
+          <span>
+            You get the idea :)
+          </span>
+        )
       }]}
     />
   )
