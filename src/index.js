@@ -110,7 +110,7 @@ class ReactStory extends React.Component {
             >
               <Nav
                 onClick={() => this.setState(toggleSidebar)}
-              >p
+              >
                 <SidebarToggle
                   isSidebarOpen={isSidebarOpen}
                 />
