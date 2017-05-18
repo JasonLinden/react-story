@@ -1,10 +1,5 @@
 import React from 'react'
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom'
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import { ThemeProvider } from 'glamorous'
 import initReactFastclick from 'react-fastclick'
 //
@@ -22,7 +17,7 @@ const toggleSidebar = state => ({
 
 class ReactStory extends React.Component {
   static defaultProps = defaultProps
-  constructor () {
+  constructor() {
     super()
     this.state = {
       isSidebarOpen: false,
@@ -30,18 +25,15 @@ class ReactStory extends React.Component {
     }
     this.rebuild = this.rebuild.bind(this)
   }
-  componentWillMount () {
+  componentWillMount() {
     this.rebuild()
   }
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     const oldProps = this.props
 
     const { theme: { sidebarBreakpoint } } = newProps
 
-    if (
-      oldProps.width < newProps.width &&
-      newProps.width > sidebarBreakpoint
-    ) {
+    if (oldProps.width < newProps.width && newProps.width > sidebarBreakpoint) {
       this.setState({
         isSidebarOpen: false
       })
@@ -50,10 +42,8 @@ class ReactStory extends React.Component {
       this.rebuild()
     }
   }
-  rebuild (props = this.props) {
-    const {
-      defaultComponent
-    } = this.props
+  rebuild(props = this.props) {
+    const { defaultComponent } = this.props
 
     const stories = props.stories.map(story => {
       const name = story.name || `Story ${uid++}`
@@ -69,7 +59,7 @@ class ReactStory extends React.Component {
       stories
     })
   }
-  render () {
+  render() {
     const {
       width,
       height,
@@ -94,34 +84,27 @@ class ReactStory extends React.Component {
       //
     } = this.props
 
-    const {
-      isSidebarOpen,
-      stories
-    } = this.state
+    const { isSidebarOpen, stories } = this.state
 
     return (
       <Router>
-        <ThemeProvider theme={{
-          ...theme,
-          width,
-          height
-        }}>
-          <Wrapper
-            isSidebarOpen={isSidebarOpen}
-          >
-            <NavWrapper
-              isSidebarOpen={isSidebarOpen}
-            >
-              <Nav
-                onClick={() => this.setState(toggleSidebar)}
-              >
-                <SidebarToggle
-                  isSidebarOpen={isSidebarOpen}
-                />
+        <ThemeProvider
+          theme={{
+            ...theme,
+            width,
+            height
+          }}
+        >
+          <Wrapper isSidebarOpen={isSidebarOpen}>
+            <NavWrapper isSidebarOpen={isSidebarOpen}>
+              <Nav onClick={() => this.setState(toggleSidebar)}>
+                <SidebarToggle isSidebarOpen={isSidebarOpen} />
                 <Route
                   path={'/' + pathPrefix + ':storyID'}
-                  children={({match}) => {
-                    const activeStory = match && stories.find(d => d.path === match.params.storyID)
+                  children={({ match }) => {
+                    const activeStory =
+                      match &&
+                      stories.find(d => d.path === match.params.storyID)
                     return (
                       <StoryName>
                         {activeStory && activeStory.name}
@@ -133,15 +116,11 @@ class ReactStory extends React.Component {
             </NavWrapper>
             <MainWrapper>
               <SidebarWrapper>
-                <Sidebar
-                  isSidebarOpen={isSidebarOpen}
-                >
+                <Sidebar isSidebarOpen={isSidebarOpen}>
                   <StoryListWrapper>
                     <StoryList>
                       {stories.map(story => (
-                        <StoryListItem
-                          key={story.path}
-                        >
+                        <StoryListItem key={story.path}>
                           <Route
                             path={'/' + pathPrefix + story.path}
                             exact
@@ -162,22 +141,21 @@ class ReactStory extends React.Component {
                         </StoryListItem>
                       ))}
                     </StoryList>
-                    {showCredit && (
+                    {showCredit &&
                       <Credit>
-                        <a
-                          href='https://react-story.js.org'
-                        >
+                        <a href="https://react-story.js.org">
                           Built with React-Story
                         </a>
-                      </Credit>
-                    )}
+                      </Credit>}
                   </StoryListWrapper>
                 </Sidebar>
               </SidebarWrapper>
               <StoryWrapper
-                onClick={e => isSidebarOpen && this.setState({
-                  isSidebarOpen: false
-                })}
+                onClick={e =>
+                  isSidebarOpen &&
+                  this.setState({
+                    isSidebarOpen: false
+                  })}
               >
                 <Switch>
                   {stories.map(story => (
@@ -186,16 +164,11 @@ class ReactStory extends React.Component {
                       exact
                       path={'/' + pathPrefix + story.path}
                       render={route => (
-                        <story.component
-                          story={story}
-                          route={route}
-                        />
+                        <story.component story={story} route={route} />
                       )}
                     />
                   ))}
-                  <Redirect
-                    to={'/' + pathPrefix + stories[0].path}
-                  />
+                  <Redirect to={'/' + pathPrefix + stories[0].path} />
                 </Switch>
               </StoryWrapper>
             </MainWrapper>

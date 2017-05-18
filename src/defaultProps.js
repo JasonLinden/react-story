@@ -30,7 +30,7 @@ export default {
       width: '100%',
       transition: 'all .2s ease-out'
     },
-    (_, {width, topbarHeight, sidebarBreakpoint}) => {
+    (_, { width, topbarHeight, sidebarBreakpoint }) => {
       return {
         flex: `0 0 ${topbarHeight}`,
         height: width > sidebarBreakpoint ? '0' : topbarHeight
@@ -47,27 +47,25 @@ export default {
       transition: 'all .2s ease-out',
       cursor: 'pointer'
     },
-    (_, {topbarHeight, width, sidebarBreakpoint}) => {
+    (_, { topbarHeight, width, sidebarBreakpoint }) => {
       return {
         height: topbarHeight,
         transform: width > sidebarBreakpoint && 'translateY(-100%)'
       }
     }
   ),
-  SidebarToggle: glamorous(
-    ({isSidebarOpen, ...props}) => (
-      <div {...props}>
-        <div>
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+  SidebarToggle: glamorous(({ isSidebarOpen, ...props }) => (
+    <div {...props}>
+      <div>
+        <span />
+        <span />
+        <span />
+        <span />
       </div>
-    )
-  )(({isSidebarOpen}, {width, sidebarBreakpoint, topbarHeight}) => {
+    </div>
+  ))(({ isSidebarOpen }, { width, sidebarBreakpoint, topbarHeight }) => {
     const paddingSize = 10
-    const toggleSize = Math.round((topbarHeight - (paddingSize * 2)) * 0.5)
+    const toggleSize = Math.round((topbarHeight - paddingSize * 2) * 0.5)
     const barHeight = Math.round(toggleSize * 0.15)
     return {
       flexBasis: 'auto',
@@ -105,26 +103,28 @@ export default {
         '& span:nth-child(4)': {
           top: toggleSize * 0.8
         },
-        ...(isSidebarOpen ? {
-          '& span:nth-child(1)': {
-            top: toggleSize * 0,
-            width: '0%',
-            left: '50%'
-          },
-          '& span:nth-child(2)': {
-            top: toggleSize * 0.4,
-            transform: 'rotate(45deg)'
-          },
-          '& span:nth-child(3)': {
-            top: toggleSize * 0.4,
-            transform: 'rotate(-45deg)'
-          },
-          '& span:nth-child(4)': {
-            top: toggleSize * 0.8,
-            width: '0%',
-            left: '50%'
-          }
-        } : {})
+        ...(isSidebarOpen
+          ? {
+              '& span:nth-child(1)': {
+                top: toggleSize * 0,
+                width: '0%',
+                left: '50%'
+              },
+              '& span:nth-child(2)': {
+                top: toggleSize * 0.4,
+                transform: 'rotate(45deg)'
+              },
+              '& span:nth-child(3)': {
+                top: toggleSize * 0.4,
+                transform: 'rotate(-45deg)'
+              },
+              '& span:nth-child(4)': {
+                top: toggleSize * 0.8,
+                width: '0%',
+                left: '50%'
+              }
+            }
+          : {})
       }
     }
   }),
@@ -153,16 +153,15 @@ export default {
     padding: 0,
     margin: 0
   }),
-  StoryListItemLink: glamorous(
-    ({active, ...rest}) =>
-      <Link {...rest} />
-    )({
+  StoryListItemLink: glamorous(({ active, ...rest }) => <Link {...rest} />)(
+    {
       display: 'block',
       padding: '10px',
       textDecoration: 'none',
       color: 'rgba(0, 0, 0, 0.8)',
       borderBottom: '1px solid rgba(0, 0, 0, 0.05)'
-    }, ({active}) => ({
+    },
+    ({ active }) => ({
       fontWeight: active && 'bold'
     })
   ),
@@ -196,36 +195,48 @@ export default {
       pointerEvents: 'none',
       zIndex: 100000000
     },
-    ({isSidebarOpen}, {width, height, topbarHeight, sidebarWidth, sidebarBreakpoint}) => {
+    (
+      { isSidebarOpen },
+      { width, height, topbarHeight, sidebarWidth, sidebarBreakpoint }
+    ) => {
       return {
         flex: width < sidebarBreakpoint ? '0 0 0' : `0 0 ${sidebarWidth}`,
         width: width < sidebarBreakpoint ? 0 : sidebarWidth
       }
     }
   ),
-  Sidebar: glamorous.div({
-    background: '#f3f3f3',
-    borderRight: '3px solid #cccccc',
-    transition: 'all .2s ease-out',
-    height: '100%',
-    pointerEvents: 'all'
-  }, ({isSidebarOpen}, {width, topbarHeight, sidebarWidth, sidebarBreakpoint}) => {
-    const open = {
-      transform: 'translate(0, 0)',
-      boxShadow: width <= sidebarBreakpoint ? '0 10px 20px 0 rgba(0,0,0,.25)' : ''
+  Sidebar: glamorous.div(
+    {
+      background: '#f3f3f3',
+      borderRight: '3px solid #cccccc',
+      transition: 'all .2s ease-out',
+      height: '100%',
+      pointerEvents: 'all'
+    },
+    (
+      { isSidebarOpen },
+      { width, topbarHeight, sidebarWidth, sidebarBreakpoint }
+    ) => {
+      const open = {
+        transform: 'translate(0, 0)',
+        boxShadow: width <= sidebarBreakpoint
+          ? '0 10px 20px 0 rgba(0,0,0,.25)'
+          : ''
+      }
+      return {
+        width: sidebarWidth,
+        transform: 'translate(-100%, 0)',
+        paddingBottom: topbarHeight,
+        ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
+      }
     }
-    return {
-      width: sidebarWidth,
-      transform: 'translate(-100%, 0)',
-      paddingBottom: topbarHeight,
-      ...(isSidebarOpen || width > sidebarBreakpoint ? open : {})
-    }
-  }),
+  ),
   StoryWrapper: glamorous.div({
     flex: '1 1 auto',
     padding: '10px',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
-    transition: 'all .2s ease-out'
+    transition: 'all .2s ease-out',
+    position: 'relative'
   })
 }

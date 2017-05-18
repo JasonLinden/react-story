@@ -3,9 +3,9 @@ import 'javascript-detect-element-resize'
 //
 import utils from './utils'
 
-export default function HyperResponsive (WrappedComponent) {
+export default function HyperResponsive(WrappedComponent) {
   return class HyperResponsive extends React.Component {
-    constructor () {
+    constructor() {
       super()
       this.state = {
         ready: false,
@@ -14,39 +14,34 @@ export default function HyperResponsive (WrappedComponent) {
       }
       this.resize = this.resize.bind(this)
     }
-    componentWillMount () {
+    componentWillMount() {
       this.resize = utils.throttle(this.resize, 16)
     }
-    componentDidMount () {
+    componentDidMount() {
       if (!this.resizeListener) {
         this.resizeListener = window.addResizeListener(this.el, this.resize)
       }
       this.resize()
     }
-    componentWillUnmount () {
+    componentWillUnmount() {
       this.resizeListener && window.removeResizeListener(this.el, this.resize)
     }
-    resize (e) {
+    resize(e) {
       this.setState({
         ready: true,
         width: parseInt(window.getComputedStyle(this.el).width),
         height: parseInt(window.getComputedStyle(this.el).height)
       })
     }
-    render () {
-      const {
-        style,
-        className,
-        ...rest
-      } = this.props
+    render() {
+      const { style, className, ...rest } = this.props
 
-      const {
-        width,
-        height
-      } = this.state
+      const { width, height } = this.state
       return (
         <div
-          ref={el => { this.el = el }}
+          ref={el => {
+            this.el = el
+          }}
           style={{
             height: '100%',
             width: '100%',
@@ -54,11 +49,7 @@ export default function HyperResponsive (WrappedComponent) {
           }}
           className={className}
         >
-          <WrappedComponent
-            width={width}
-            height={height}
-            {...rest}
-          />
+          <WrappedComponent width={width} height={height} {...rest} />
         </div>
       )
     }
