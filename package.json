@@ -1,6 +1,6 @@
 {
   "name": "react-story",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A story component for displaying, developing, and testing React components",
   "license": "MIT",
   "homepage": "https://github.com/tannerlinsley/react-story#readme",
@@ -38,7 +38,7 @@
     "javascript-detect-element-resize": "^0.5.3",
     "raf": "^3.3.2",
     "react-fastclick": "^3.0.1",
-    "react-router-dom": "next"
+    "react-router-dom": "^4.1.1"
   },
   "peerDependencies": {
     "react": "^15.x.x"
