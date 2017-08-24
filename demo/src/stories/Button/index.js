@@ -1,5 +1,5 @@
 import React from 'react'
-import { Demo, Code, PropsTable } from '../../../../src'
+import { Story, Demo, PropsTable } from '../../../../src'
 import Button from './Button'
 import ButtonRaw from '!raw-loader!./Button'
 import NormalMarkdown from './ButtonNormal.md'
@@ -24,14 +24,14 @@ const ButtonLarge = () => (
 
 const DemoComponent = () => {
   return (
-    <div>
+    <Story>
       <ButtonNormal />
       <ButtonLarge />
       <PropsTable
         demonstrating={Button}
         raw={ButtonRaw}
       />
-    </div>
+    </Story>
   )
 }
 

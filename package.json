@@ -34,8 +34,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   },
-  "author": "",
-  "homepage": "",
+  "author": "Zach Sherman & Tanner Linsley",
+  "homepage": "https://github.com/react-tools/react-story",
   "license": "MIT",
   "repository": "",
   "keywords": [
