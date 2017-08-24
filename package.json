@@ -1,73 +1,44 @@
 {
   "name": "react-story",
-  "version": "0.0.10",
-  "description": "A story component for displaying, developing, and testing React components",
-  "license": "MIT",
-  "homepage": "https://github.com/tannerlinsley/react-story#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tannerlinsley/react-story.git"
-  },
-  "keywords": [
-    "react",
-    "story",
-    "react-story",
-    "datagrid"
-  ],
+  "version": "1.0.0",
+  "description": "react-story React component",
   "main": "lib/index.js",
+  "module": "es/index.js",
   "files": [
-    "src/",
-    "lib/",
-    "react-story.js",
-    "media/*.png"
+    "css",
+    "es",
+    "lib",
+    "umd"
   ],
   "scripts": {
-    "build": "babel src --out-dir lib --source-maps inline --presets=es2015,stage-2,react",
-    "watch": "onchange 'src/**/*.js' -i -- npm run build",
-    "test": "standard",
-    "umd": "rimraf react-story.js && webpack --config umd.webpack.js",
-    "prepublish": "npm run build && npm run umd",
-    "postpublish": "git push --tags",
-    "docs": "cd docs && yarn && yarn start",
-    "docs:build": "cd docs && yarn && yarn run build"
+    "build": "nwb build-react-component",
+    "clean": "nwb clean-module && nwb clean-demo",
+    "start": "nwb serve-react-demo",
+    "test": "nwb test-react",
+    "test:coverage": "nwb test-react --coverage",
+    "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "glamor": "^2.20.25",
-    "glamorous": "^3.14.0",
-    "javascript-detect-element-resize": "^0.5.3",
-    "raf": "^3.3.2",
-    "react-fastclick": "^3.0.1",
-    "react-router-dom": "^4.1.1"
+    "react-docgen": "^2.17.0",
+    "react-interface": "^0.1.1",
+    "react-router-dom": "^4.1.2",
+    "react-smackdown": "^0.6.0",
+    "styled-components": "^2.1.2"
   },
   "peerDependencies": {
-    "react": "^15.x.x"
+    "react": "15.x"
   },
   "devDependencies": {
-    "autoprefixer": "^6.7.0",
-    "babel-cli": "6.14.0",
-    "babel-eslint": "6.1.2",
-    "babel-preset-es2015": "6.14.0",
-    "babel-preset-react": "6.11.1",
-    "babel-preset-stage-2": "6.13.0",
-    "npm-run-all": "^3.1.1",
-    "onchange": "^3.0.2",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "rimraf": "^2.6.1",
-    "standard": "^8.0.0",
-    "webpack": "^2.4.1"
+    "nwb": "0.18.x",
+    "raw-loader": "^0.5.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "node_modules",
-      "dist",
-      "lib",
-      "example",
-      "react-story.js",
-      "stories",
-      "docs"
-    ]
-  }
+  "author": "",
+  "homepage": "",
+  "license": "MIT",
+  "repository": "",
+  "keywords": [
+    "react-component"
+  ]
 }
