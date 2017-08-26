@@ -20,10 +20,9 @@ const getRows = propTypes => Object.keys(propTypes).map(prop => {
 });
 
 const Table = ({ demonstrating, raw }) => {
-
-  console.log(parse(raw))
-
   const propTypes = parse(raw).props
+
+  if (!propTypes) return null;
 
   return (
     <table>
