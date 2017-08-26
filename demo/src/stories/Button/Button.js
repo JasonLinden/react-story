@@ -13,7 +13,14 @@ Button.propTypes = {
   /**
    * How big is it?
    */
-  size: PropTypes.oneOf(['small', 'medium', 'large'])
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  /**
+   * Style overrides
+   */
+  styles: PropTypes.shape({
+    color: PropTypes.string,
+    border: PropTypes.string
+  })
 }
 
 Button.defaultProps = {

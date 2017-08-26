@@ -10,7 +10,8 @@ const getRows = propTypes => Object.keys(propTypes).map(prop => {
       <td>{prop}</td>
       <td>
         {type && type.name}
-        {type.value && type.value.map(v => v.value)}
+        {type.value && Array.isArray(type.value) && type.value.map(v => v.value)}
+        {type.value && !Array.isArray(type.value) && JSON.stringify(type.value)}
       </td>
       <td>{required.toString()}</td>
       <td>{defaultValue && defaultValue.value}</td>
@@ -23,6 +24,7 @@ const Table = ({ demonstrating, raw }) => {
   const propTypes = parse(raw).props
 
   if (!propTypes) return null;
+  console.log(propTypes)
 
   return (
     <table>
