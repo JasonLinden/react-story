@@ -11,7 +11,12 @@ const getRows = propTypes => Object.keys(propTypes).map(prop => {
       <td>
         {type && type.name}
         {type.value && Array.isArray(type.value) && type.value.map(v => v.value)}
-        {type.value && !Array.isArray(type.value) && JSON.stringify(type.value)}
+        {
+          type.value &&
+          !Array.isArray(type.value) &&
+          typeof type.value === "object" &&
+          JSON.stringify(type.value)
+        }
       </td>
       <td>{required.toString()}</td>
       <td>{defaultValue && defaultValue.value}</td>
