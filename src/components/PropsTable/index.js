@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { propTypesToObject } from '../../utils'
 import { parse } from 'react-docgen'
+import resolver from 'react-docgen-annotation-resolver'
 
 const getRows = propTypes => Object.keys(propTypes).map(prop => {
   const { type, required, defaultValue, description } = propTypes[prop]
@@ -25,8 +26,16 @@ const getRows = propTypes => Object.keys(propTypes).map(prop => {
   )
 });
 
-const Table = ({ demonstrating, raw }) => {
-  const propTypes = parse(raw).props
+
+const Table = ({ raw, demonstrating }) => {
+  // TODO: Catch parse error
+  // Need a custom resolver to find the styled-component definition
+  const parsed = demonstrating.name !== 'StyledComponent'
+    ? parse(raw)
+    : parse(raw, resolver)
+
+  // May be an array if it's a styled-component
+  const propTypes = Array.isArray(parsed) ? parsed[0].props : parsed.props
 
   if (!propTypes) return null;
 
@@ -49,7 +58,6 @@ const Table = ({ demonstrating, raw }) => {
 }
 
 Table.propTypes = {
-  demonstrating: PropTypes.func.isRequired,
   raw: PropTypes.string.isRequired
 }
 

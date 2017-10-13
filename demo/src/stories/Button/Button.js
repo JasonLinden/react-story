@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 
-const Button = () => {
-  return <button>Hello!</button>
-}
+const Button = styled.button``
 
 Button.propTypes = {
   /**
@@ -28,4 +27,7 @@ Button.defaultProps = {
   size: 'small'
 }
 
+// @component
+// proptypes don't actually appear to be enforced on a styled-component
+// they're here mostly for the purposes of documentation
 export default Button
