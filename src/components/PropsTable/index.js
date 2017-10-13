@@ -29,7 +29,6 @@ const Table = ({ demonstrating, raw }) => {
   const propTypes = parse(raw).props
 
   if (!propTypes) return null;
-  console.log(propTypes)
 
   return (
     <table>
