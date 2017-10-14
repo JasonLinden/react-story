@@ -1,6 +1,6 @@
 {
   "name": "react-story",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "react-story React component",
   "main": "lib/index.js",
   "module": "es/index.js",
