@@ -41,7 +41,7 @@ class ReactStory extends React.Component {
     }
   }
 
-  renderStories(stories) {
+  renderStories(match) {
     const stories = match => this.props.stories.map((s, i) => {
       return (
         <StoryItem
@@ -79,16 +79,18 @@ class ReactStory extends React.Component {
             <Redirect to={`/story/${getSlugFromStory(this.props.stories[0])}`} />
           )} />
           <Route path='/story/*' render={({ match }) => (
-            {
-              this.props.useTheme &&
-              <Theme>
-                {this.renderStories()}
-              </Theme>
-            }
-            {
-              !this.props.userTheme &&
-              {this.renderStories()}
-            }
+            <div>
+              {
+                this.props.useTheme &&
+                <Theme>
+                  {this.renderStories(match)}
+                </Theme>
+              }
+              {
+                !this.props.useTheme &&
+                this.renderStories(match)
+              }
+            </div>
           )} />
         </div>
       </Router>
@@ -97,7 +99,7 @@ class ReactStory extends React.Component {
 }
 
 ReactStory.defaultProps = {
-  userTheme: true,
+  useTheme: true,
   stories: [],
   sidebarContent: null,
 }

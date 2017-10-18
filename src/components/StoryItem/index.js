@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { MenuItem, MenuHeader } from 'react-interface/es/components'
+import { MenuItem, MenuHeader, Button } from 'react-interface/es/components'
 import { getSlugFromStory } from '../../utils'
 
 const StoryItem = (story) => {
