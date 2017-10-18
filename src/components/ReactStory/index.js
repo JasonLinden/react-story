@@ -1,7 +1,8 @@
 import React from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import styled from 'styled-components'
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import base from 'react-interface/es/themes/base'
+import { Theme } from 'react-interface'
+import light from 'react-interface/es/themes/light'
 import Story from '../Story'
 import StoryItem from '../StoryItem'
 import { flattenStories, getSlugFromStory } from '../../utils'
@@ -40,7 +41,7 @@ class ReactStory extends React.Component {
     }
   }
 
-  render() {
+  renderStories(stories) {
     const stories = match => this.props.stories.map((s, i) => {
       return (
         <StoryItem
@@ -53,32 +54,52 @@ class ReactStory extends React.Component {
     })
 
     return (
+      <Layout>
+        <aside>
+          {this.props.sidebarContent}
+          <ul>
+            {stories(match)}
+          </ul>
+        </aside>
+        <section style={{ flex: '1 1 auto' }}>
+          <Story
+            storyPath={match.params[0]}
+            stories={this.props.stories}
+          />
+        </section>
+      </Layout>
+    )
+  }
+
+  render() {
+    return (
       <Router>
         <div style={{ height: '100%', width: '100%' }}>
           <Route exact path='/' render={() =>(
             <Redirect to={`/story/${getSlugFromStory(this.props.stories[0])}`} />
           )} />
           <Route path='/story/*' render={({ match }) => (
-            <ThemeProvider theme={base}>
-              <Layout>
-                <aside>
-                  <ul>
-                    {stories(match)}
-                  </ul>
-                </aside>
-                <section style={{ flex: '1 1 auto' }}>
-                  <Story
-                    storyPath={match.params[0]}
-                    stories={this.props.stories}
-                  />
-                </section>
-              </Layout>
-            </ThemeProvider>
+            {
+              this.props.useTheme &&
+              <Theme>
+                {this.renderStories()}
+              </Theme>
+            }
+            {
+              !this.props.userTheme &&
+              {this.renderStories()}
+            }
           )} />
         </div>
       </Router>
     )
   }
+}
+
+ReactStory.defaultProps = {
+  userTheme: true,
+  stories: [],
+  sidebarContent: null,
 }
 
 export default ReactStory
