@@ -1,5 +1,6 @@
 import React from 'react'
 import Markdown from 'react-smackdown'
+import { Title, Box } from 'react-interface/es/components'
 import { getStoryFromSlugs, flattenStories } from '../../utils'
 import syntax from '../../utils/syntax'
 import MarkdownWrapper from './MarkdownWrapper'
@@ -12,9 +13,11 @@ export default ({ stories, storyPath }) => {
   )
 
   return (
-    <div>
-      {story.name} Examples:
+    <Box p={1}>
+      <Title size="xl" pb={1} mb={2} borderBottom borderColor='primary1' borderWidth={1}>
+        {story.name}
+      </Title>
       {typeof story.component === 'function' ? story.component() : story.component}
-    </div>
+    </Box>
   )
 }
