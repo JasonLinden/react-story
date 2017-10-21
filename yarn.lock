@@ -5242,25 +5242,9 @@ react-html-parser@^2.0.0:
   dependencies:
     htmlparser2 "^3.9.0"
 
-react-interface@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-interface/-/react-interface-0.3.1.tgz#b2f9209cce746f6a22917a3304383ea4580a788d"
-  dependencies:
-    chroma-js "^1.3.4"
-    color "^2.0.0"
-    deepmerge "^2.0.0"
-    html-loader "^0.5.1"
-    hue-name "^1.0.0-b0"
-    markdown-loader "^2.0.1"
-    palx "^1.0.2"
-    raw-loader "^0.5.1"
-    react-story "^1.1.3"
-    styled-components "^2.2.1"
-    styled-system "^1.0.7"
-
-react-interface@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/react-interface/-/react-interface-0.4.0.tgz#2e4657f260b8fc58be73ec5b49e68ac591ef7ce8"
+react-interface@^0.4.0, react-interface@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-interface/-/react-interface-0.4.1.tgz#e100663edaa44feb19723e18968c0d937a3c49af"
   dependencies:
     chroma-js "^1.3.4"
     color "^2.0.0"
@@ -5271,7 +5255,7 @@ react-interface@^0.4.0:
     markdown-loader "^2.0.1"
     palx "^1.0.2"
     raw-loader "^0.5.1"
-    react-story "^1.2.0"
+    react-story "^1.2.1"
     styled-components "^2.2.1"
     styled-system "^1.0.7"
 
@@ -5313,13 +5297,13 @@ react-smackdown@^0.6.4:
     react-html-parser "^2.0.0"
     react-syntax-highlighter "^5.6.3"
 
-react-story@^1.1.3, react-story@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-story/-/react-story-1.2.0.tgz#2377d9da8591a4b17a1bcc5ba17cda8acac61fd2"
+react-story@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-story/-/react-story-1.2.1.tgz#bc38de818e693bc8c1680c5251a469ed2d239444"
   dependencies:
     react-docgen next
     react-docgen-annotation-resolver "^1.0.0"
-    react-interface "^0.3.1"
+    react-interface "^0.4.0"
     react-router-dom "^4.2.2"
     react-smackdown "^0.6.4"
     styled-components "^2.2.1"

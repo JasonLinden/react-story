@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
 	type: 'react-component',
 	npm: {
@@ -11,6 +13,9 @@ module.exports = {
 	},
   uglify: false,
 	webpack: {
+		aliases: {
+      'react-story': path.resolve('src'),
+    },
 		extra: {
 			module: {
 				rules: [

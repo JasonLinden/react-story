@@ -21,7 +21,7 @@
   "dependencies": {
     "react-docgen": "next",
     "react-docgen-annotation-resolver": "^1.0.0",
-    "react-interface": "^0.4.0",
+    "react-interface": "^0.4.1",
     "react-router-dom": "^4.2.2",
     "react-smackdown": "^0.6.4",
     "styled-components": "^2.2.1"
