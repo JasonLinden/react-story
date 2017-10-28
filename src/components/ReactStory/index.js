@@ -23,6 +23,8 @@ const Layout = styled.div`
   }
   aside {
     border-right: 1px solid #ddd;
+    background: #F3F7FA;
+    color: #5A6265;
     height: 100vh;
     min-width: 250px;
     flex-shrink: 0;
