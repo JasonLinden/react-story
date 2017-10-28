@@ -17,7 +17,7 @@ export default ({ stories, storyPath }) => {
       <Title size="xl" pb={1} mb={2} borderBottom borderColor='primary1' borderWidth={1}>
         {story.name}
       </Title>
-      {typeof story.component === 'function' ? story.component() : story.component}
+      {story.component}
     </Box>
   )
 }
