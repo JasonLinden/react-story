@@ -5258,9 +5258,9 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-smackdown@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/react-smackdown/-/react-smackdown-0.6.4.tgz#36346a89c5af3955b48e4c49cd6928d16da2f3d4"
+react-smackdown@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/react-smackdown/-/react-smackdown-0.6.5.tgz#78e55a80280d050e1572914f7940ef92c85f86ff"
   dependencies:
     marked "^0.3.6"
     react-html-parser "^2.0.0"
