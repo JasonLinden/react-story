@@ -26,11 +26,14 @@ const Demo = ({ children, name, desc, code }) => (
       >
         {children}
       </Box>
-      <Expand>
-        <Pre m={0} bg='#FCFDFE'>
-          <Code source={code} />
-        </Pre>
-      </Expand>
+      {
+        code &&
+        <Expand>
+          <Pre m={0} bg='#FCFDFE'>
+            <Code source={code} />
+          </Pre>
+        </Expand>
+      }
     </Box>
   </Wrapper>
 )
