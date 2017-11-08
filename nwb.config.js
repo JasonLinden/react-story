@@ -11,8 +11,8 @@ module.exports = {
 		// 	}
 		// }
 	},
-  uglify: false,
 	webpack: {
+    uglify: false,
 		aliases: {
       'react-story': path.resolve('src'),
     },
