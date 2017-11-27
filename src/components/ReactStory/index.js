@@ -55,6 +55,8 @@ class ReactStory extends React.Component {
       )
     })
 
+    console.log(this.props.stories)
+
     return (
       <Layout>
         <aside>
