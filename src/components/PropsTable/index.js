@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Table, TBody, THead, Header, Row, Cell } from 'react-interface/es/components'
 import { propTypesToObject } from '../../utils'
-import { parse } from 'react-docgen'
-import resolver from 'react-docgen-annotation-resolver'
+// import { parse } from 'react-docgen'
+// import resolver from 'react-docgen-annotation-resolver'
 
 const getRows = propTypes => Object.keys(propTypes).map(prop => {
   const { type, required, defaultValue, description } = propTypes[prop]
@@ -31,9 +31,9 @@ const getRows = propTypes => Object.keys(propTypes).map(prop => {
 const PropsTable = ({ raw, demonstrating }) => {
   // TODO: Catch parse error
   // Need a custom resolver to find the styled-component definition
-  const parsed = demonstrating.name !== 'StyledComponent'
-    ? parse(raw)
-    : parse(raw, resolver)
+  // const parsed = demonstrating.name !== 'StyledComponent'
+  //   ? parse(raw)
+  //   : parse(raw, resolver)
 
   // May be an array if it's a styled-component
   const propTypes = Array.isArray(parsed) ? parsed[0].props : parsed.props

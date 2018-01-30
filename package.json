@@ -19,8 +19,6 @@
     "test:watch": "nwb test-react --server"
   },
   "dependencies": {
-    "react-docgen": "next",
-    "react-docgen-annotation-resolver": "^1.0.0",
     "react-interface": "^0.6.5",
     "react-router-dom": "^4.2.2",
     "react-smackdown": "^0.6.5",
